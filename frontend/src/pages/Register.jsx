@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // For navigation
-
 import { registerUser } from '../apis/auth'; // Assuming your register API function
 
 const Register = () => {
   const navigate = useNavigate();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
@@ -18,22 +16,19 @@ const Register = () => {
     setIsLoading(true);
     setErrorMessage(null);
 
-    try {
-      const response = await registerUser({
-        firstName,
-        lastName,
-        email,
-        password,
-      });
-
-      console.log('Registration successful:', response.data); // Assuming response contains success message
-
-      navigate('/login'); // Redirect to login page after successful registration
-    } catch (error) {
-      console.error('Registration error:', error);
-      setErrorMessage(error.response?.data?.message || 'Registration failed');
-    } finally {
+    const { data, error } = await registerUser({username,email,password}); // Get error from response
+    if (data?.token) {
+      localStorage.setItem("userToken", data.token);
       setIsLoading(false);
+      navigate("/dashboard");
+    } else {
+      setIsLoading(false);
+      if (error) {
+        console.log(error)
+        setErrorMessage(error); // Set error message if provided in response
+      } else {
+        setErrorMessage("Invalid Credentials!");
+      }
     }
   };
   return (
@@ -44,27 +39,14 @@ const Register = () => {
         {errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col">
-            <label htmlFor="firstName" className="text-sm font-medium text-gray-700">
-              First Name
-            </label>
-            <input
-              id="firstName"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              className="px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-              required
-            />
-          </div>
-          <div className="flex flex-col">
             <label htmlFor="lastName" className="text-sm font-medium text-gray-700">
-              Last Name
+              Username
             </label>
             <input
               id="lastName"
               type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="px-3 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
               required
             />

@@ -3,13 +3,12 @@ import user from '../models/user.js';
 
 
 export const register = async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
+  const { username, email, password } = req.body;
   try {
     const existingUser = await user.findOne({ email });
     if (existingUser)
-      return res.status(400).json({ error: 'User already Exits' });
-    const fullname = firstname + ' ' + lastname;
-    const newuser = new user({ email, password, name: fullname });
+      return res.status(400).json({ error: 'User already Exists' });
+    const newuser = new user({ email, password, username });
     const token = await newuser.generateAuthToken();
     await newuser.save();
     res.json({ message: 'success', token: token });
