@@ -39,7 +39,6 @@ const Register = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-white ">
-        <h1 className="text-2xl font-bold text-center ">   streamsync 📺</h1>  {/* Larger font size and specific color */}
         <h1 className="text-2xl font-bold text-center">Register</h1>
         <p className='text-[#000000] text-[12px] tracking-wider font-medium'>Have Account ? <Link className='text-[rgba(0,195,154,1)] underline' to="/login">Sign in</Link></p>
         {errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>}
