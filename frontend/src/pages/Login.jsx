@@ -97,7 +97,7 @@ const Login = () => {
             </button>
           </form>
           <div className="flex justify-center mt-8">  {/* Added mt-8 for margin-top */}
-            <h1 className="text-xs text-center ">welcome to depth-map-gen 📺</h1>
+            <h1 className="text-xs text-center ">welcome to depth-map-gen </h1>
           </div>        
         </div>
       </div>

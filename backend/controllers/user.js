@@ -3,44 +3,44 @@ import user from '../models/user.js';
 
 
 export const register = async (req, res) => {
-    console.log(req.body)
-    const { firstname, lastname, email, password } = req.body;
-    console.log(firstname, lastname, email, passwords)
-    try {
-      const existingUser = await user.findOne({ email });
-      if (existingUser)
-        return res.status(400).json({ error: 'User already Exits' });
-      const fullname = firstname + ' ' + lastname;
-      const newuser = new user({ email, password, name: fullname });
-      const token = await newuser.generateAuthToken();
-      await newuser.save();
-      res.json({ message: 'success', token: token });
-    } catch (error) {
-      console.log('Error in register ' + error);
-      res.status(500).send(error);
+  const { firstname, lastname, email, password } = req.body;
+  try {
+    const existingUser = await user.findOne({ email });
+    if (existingUser)
+      return res.status(400).json({ error: 'User already Exits' });
+    const fullname = firstname + ' ' + lastname;
+    const newuser = new user({ email, password, name: fullname });
+    const token = await newuser.generateAuthToken();
+    await newuser.save();
+    res.json({ message: 'success', token: token });
+  } catch (error) {
+    console.log('Error in register ' + error);
+    res.status(500).send(error);
+  }
+};
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const valid = await user.findOne({ email });
+    if (!valid) return res.status(404).json({ message: 'User does not exist' }); // Added return here
+
+    const validPassword = await argon2.verify(valid.password, password);
+    if (!validPassword) {
+      return res.status(401).json({ message: 'Invalid Credentials' }); // Added return here
     }
-  };
-  export const login = async (req, res) => {
-    const { email, password } = req.body;
-    try {
-      const valid = await user.findOne({ email });
-      if (!valid) res.status(200).json({ message: 'User dont exist' });
-      const validPassword = await argon2.verify(valid.password,password);
-      if (!validPassword) {
-        res.status(200).json({ message: 'Invalid Credentials' });
-      } else {
-        const token = await valid.generateAuthToken();
-        await valid.save();
-        res.cookie('userToken', token, {
-          httpOnly: true,
-          maxAge: 24 * 60 * 60 * 1000,
-        });
-        res.status(200).json({ token: token, status: 200 });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error });
-    }
-  };
+
+    const token = await valid.generateAuthToken();
+    await valid.save();
+    res.cookie('userToken', token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    return res.status(200).json({ token: token, status: 200 }); // Added return here
+  } catch (error) {
+    return res.status(500).json({ error: error.message }); // Send only error message
+  }
+};
+
 
   export const validUser = async (req, res) => {
     try {
