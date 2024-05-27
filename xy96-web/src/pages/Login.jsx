@@ -80,7 +80,7 @@ const Login = () => {
           Sign in with Google 🚀
         </button>
         <div className="flex justify-center mt-8">
-          <h1 className="text-xs text-center">Welcome to stream_sync 📺</h1>
+          <h1 className="text-xs text-center">Welcome to xy96</h1>
         </div>
       </div>
     </div>
