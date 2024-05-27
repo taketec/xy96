@@ -9,12 +9,18 @@ const Login = () => {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        console.log('Google login successful', tokenResponse.access_token);
-
+        if (!tokenResponse.hasOwnProperty('error')) {
+          const link = document.createElement('a');
+          link.href = `myfirstblog://response=${tokenResponse}`;
+          document.body.appendChild(link);
+          link.click();
+        }
+  
       } catch (error) {
         setErrorMessage(error.response?.data?.message || 'Login failed');
       }
     },
+
 
     onError: () => {
       setErrorMessage('Google login failed');
