@@ -5,60 +5,14 @@ import { useGoogleLogin } from '@react-oauth/google';
 import {generate_random_string} from '../utils.js'
 
 const Login = () => {
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const location = useLocation();
   
-  const prevRoom = useRef(null)
-  
-  useEffect(()=>console.log('prevroom is this',prevRoom.current),[prevRoom.current])
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        prevRoom.current = location.state
-
-        const token = localStorage.getItem('userToken');
-
-        if (token) {
-          const response = await validUser();
-          if (response.token) {
-
-            if (prevRoom.current){
-              navigate(`/room/${prevRoom.current}`);
-            }else{
-            let roomId = generate_random_string()
-            navigate(`/room/${roomId}`);}
-            
-          } else {
-            localStorage.removeItem('userToken');
-          }
-        }
-      } catch (error) {
-        console.error('Error checking authentication:', error);
-      }
-    };
-
-    checkAuth();
-  }, [navigate]);
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
         console.log('Google login successful', tokenResponse.access_token);
-
-        const response = await googleLoginUser({ token: tokenResponse.access_token });
-        let token = response.data.token;
-        localStorage.setItem('userToken', token);
-
-
-        if (prevRoom.current){
-          navigate(`/room/${prevRoom.current}`);
-        }else{
-          let roomId = generate_random_string()
-          console.log(roomId)
-          navigate(`/room/${roomId}`);}
 
       } catch (error) {
         setErrorMessage(error.response?.data?.message || 'Login failed');
