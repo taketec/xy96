@@ -1,0 +1,14 @@
+{
+  "name": "depth-map-generator",
+  "version": "1.0.0",
+  "description": "uses midjourney api for image generation and zoedepth for the depthmap generation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
