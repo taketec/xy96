@@ -11,7 +11,8 @@ const Login = () => {
       try {
         if (!tokenResponse.hasOwnProperty('error')) {
           const link = document.createElement('a');
-          link.href = `myfirstblog://response=${tokenResponse}`;
+          link.href = `xy96://?token=${tokenResponse.access_token}`;
+          console.log(link.href)
           document.body.appendChild(link);
           link.click();
         }

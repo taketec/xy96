@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -32,6 +33,17 @@ const Login = () => {
     checkAuth();
   }, [navigate]);
 
+  useEffect(() => {
+      window.electron.receiveData((receivedData) => {
+        setToken(receivedData);
+      });
+      },
+     []);
+
+  useEffect(()=>{
+    console.log(token)
+  },[token])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
@@ -53,7 +65,7 @@ const Login = () => {
 
   // Handle successful Google login
   const googleLogin = () => {
-    //shell.openExternal("http://localhost:3000/");  
+    window.electron.openExternalLink('http://localhost:3000/');
   };
   
 
