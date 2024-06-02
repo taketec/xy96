@@ -14,7 +14,7 @@ function App() {
         <Route
             exact
             path="/"
-            element={<Navigate to="/register" />}
+            element={<Navigate to="/login" />}
         />
       </Routes>
     </Router>

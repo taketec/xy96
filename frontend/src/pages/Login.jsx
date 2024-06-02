@@ -35,6 +35,7 @@ const Login = () => {
 
   useEffect(() => {
       window.electron.receiveData((receivedData) => {
+        console.log(receivedData, 'from login.jsx')
         setToken(receivedData);
       });
       },
@@ -78,57 +79,9 @@ const Login = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#2c2f33]">
       <div className="w-full max-w-md p-8 space-y-3 rounded-lg bg-[#36393f]">
-        <h1 className="text-2xl font-bold text-center text-[#ffffff]">Login</h1>
+      <h1 className="text-2xl font-bold text-center text-[#ffffff]">Sign in with Google</h1>
         {errorMessage && <div className="text-red-500 text-center">{errorMessage}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex flex-col">
-            <label htmlFor="email" className="text-sm font-medium text-[#b9bbbe]">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="px-3 py-2 rounded-lg bg-[#202225] border border-[#202225] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#7289da]"
-              required
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm font-medium text-[#b9bbbe]">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="px-3 py-2 rounded-lg bg-[#202225] border border-[#202225] text-[#ffffff] focus:outline-none focus:ring-2 focus:ring-[#7289da]"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`px-3 py-2 rounded-lg bg-[#7289da] text-white font-medium hover:bg-[#677bc4] ${isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
-          >
-            {isLoading ? (
-              <ClipLoader color="#ffffff" size={20} />
-            ) : (
-              'Login'
-            )}
-          </button>
-        </form>
-        <p className="text-[#b9bbbe] text-sm text-center mt-4">
-          Dont't have an account?{' '}
-          <Link to="/register" className="text-[#7289da] underline">
-            Sign up
-          </Link>
-        </p>
-
-
         <div className="text-center mt-4 text-[#b9bbbe]">
-          <p>Or</p>
           <button onClick={() => googleLogin()} className="block w-full px-4 py-2 mt-4 text-sm font-medium text-center text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
             Sign in with Google 🚀
           </button>
