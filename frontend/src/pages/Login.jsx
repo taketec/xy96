@@ -49,12 +49,15 @@ const Login = () => {
       });
   },[]);
 
-  useEffect(()=>{async function getJwt() {
+  useEffect(()=>{
+    async function getJwt() {
+    if (token){
     console.log(token)
     const response = await googleLoginUser({ token: token })
     console.log(response)
     localStorage.setItem('userToken', response.data.token);
-
+    navigate('/username');
+    }
   }
   getJwt()
 

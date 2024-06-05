@@ -23,41 +23,46 @@ export const googleLogin = async (req,res) => {
     //   [0] }
     //and then we use it to either make a user or to login a existing one, idk if its safe enough or not.
     //i asked chatgpt if its safe and it said yes
+    if (token){
+      axios
+      .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: {
+          "Authorization": `Bearer ${token}`
+      }
+      })
+      .then(async response => {
+        const username = response.data.name;
+        const email = response.data.email;
+        console.log(response.data)
+        console.log(username)
+        const existingUser = await user.findOne({ email });
 
-    axios
-    .get("https://www.googleapis.com/oauth2/v3/userinfo", {
-    headers: {
-        "Authorization": `Bearer ${token}`
+        if (!existingUser) {
+          console.log(`user ${username} doesnt exist`)
+          const password = await jwt.sign(
+            { username },
+            process.env.SECRET,
+            {
+              expiresIn: '24h',
+            }
+          );
+          console.log(password)
+          const newuser = new user({ email, password,name: username });
+          const token = await newuser.generateAuthToken();
+          await newuser.save();
+          return res.json({ message: 'success', token: token });
+        }
+        else{
+          console.log(`user ${username} exists `)
+          token = await existingUser.generateAuthToken()
+          return res.json({ message: 'success', token: token });
+        }
+      })
+
+  }
+  else{
+    return res.json({ message: 'no google token' })
     }
-  })
-    .then(async response => {
-      const username = response.data.name;
-      const email = response.data.email;
-      console.log(response.data)
-      console.log(username)
-      const existingUser = await user.findOne({ email });
-
-      if (!existingUser) {
-        console.log("user doesnt exist")
-        const password = await jwt.sign(
-          { username },
-          process.env.SECRET,
-          {
-            expiresIn: '24h',
-          }
-        );
-        console.log(password)
-        const newuser = new user({ email, password,name: username });
-        const token = await newuser.generateAuthToken();
-        await newuser.save();
-        return res.json({ message: 'success', token: token });
-      }
-      else{
-        token = await existingUser.generateAuthToken()
-        return res.json({ message: 'success', token: token });
-      }
-    })
-
   }
   catch(error){
     console.log(error)
@@ -74,10 +79,10 @@ export const register = async (req, res) => {
     const newuser = new user({ email, password, username });
     const token = await newuser.generateAuthToken();
     await newuser.save();
-    res.json({ message: 'success', token: token });
+    return res.json({ message: 'success', token: token });
   } catch (error) {
     console.log('Error in register ' + error);
-    res.status(500).send(error);
+    return res.status(500).send(error);
   }
 };
 export const login = async (req, res) => {
@@ -110,13 +115,13 @@ export const login = async (req, res) => {
         .findOne({ _id: req.userId })
         .select('-password');
       if (!validuser) res.json({ message: 'user is not valid' });
-      res.status(201).json({
+      return res.status(201).json({
         user: validuser,
         token: req.token,
       });
     } catch (error) {
-      res.status(500).json({ error: error });
       console.log(error);
+      return res.status(500).json({ error: error });
     }
   };
 
