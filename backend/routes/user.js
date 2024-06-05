@@ -1,7 +1,8 @@
 import {
     register,
     login,
-    validUser
+    validUser,
+    googleLogin
   } from '../controllers/user.js';
   import express from 'express';
 
@@ -9,6 +10,8 @@ import {
 
 const router = express.Router();
 
+
+router.post('/auth/google', googleLogin);
 router.post('/auth/register', register);
 router.post('/auth/login', login);
 router.get('/auth/valid', Auth, validUser);

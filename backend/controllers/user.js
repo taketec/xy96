@@ -1,5 +1,68 @@
 import argon2 from "argon2";
 import user from '../models/user.js';
+import axios from 'axios';
+import jwt from 'jsonwebtoken';
+
+
+export const googleLogin = async (req,res) => {
+  try {
+
+    let { token } = req.body
+    console.log(token)
+
+    // the request below basically gives you a object like this
+    // {
+    //   [0]   sub: '797750419735279',
+    //   [0]   name: 'Shendra Pandit',
+    //   [0]   given_name: 'Shandra',
+    //   [0]   family_name: 'Pandit',
+    //   [0]   picture: 'https://lh3.googleusercontent.com/a/ACg8ocKOya8vf1PaL34inwDaw1gYkoeHV8MbUTPxOvCEw4EnuC5L0m-o=s96-c',
+    //   [0]   email: 'shailupan93@gmail.com',
+    //   [0]   email_verified: true,
+    //   [0]   locale: 'en'
+    //   [0] }
+    //and then we use it to either make a user or to login a existing one, idk if its safe enough or not.
+    //i asked chatgpt if its safe and it said yes
+
+    axios
+    .get("https://www.googleapis.com/oauth2/v3/userinfo", {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+  })
+    .then(async response => {
+      const username = response.data.name;
+      const email = response.data.email;
+      console.log(response.data)
+      console.log(username)
+      const existingUser = await user.findOne({ email });
+
+      if (!existingUser) {
+        console.log("user doesnt exist")
+        const password = await jwt.sign(
+          { username },
+          process.env.SECRET,
+          {
+            expiresIn: '24h',
+          }
+        );
+        console.log(password)
+        const newuser = new user({ email, password,name: username });
+        const token = await newuser.generateAuthToken();
+        await newuser.save();
+        return res.json({ message: 'success', token: token });
+      }
+      else{
+        token = await existingUser.generateAuthToken()
+        return res.json({ message: 'success', token: token });
+      }
+    })
+
+  }
+  catch(error){
+    console.log(error)
+  }
+}
 
 
 export const register = async (req, res) => {
@@ -44,7 +107,7 @@ export const login = async (req, res) => {
   export const validUser = async (req, res) => {
     try {
       const validuser = await user
-        .findOne({ _id: req.rootUserId })
+        .findOne({ _id: req.userId })
         .select('-password');
       if (!validuser) res.json({ message: 'user is not valid' });
       res.status(201).json({

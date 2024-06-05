@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, validUser } from '../apis/auth';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { googleLoginUser } from '../apis/auth';
 //import { shell } from 'electron';
 
 const Login = () => {
@@ -20,7 +21,7 @@ const Login = () => {
         if (token) {
           const response = await validUser();
           if (response.token) {
-            navigate('/dashboard');
+            navigate('/login');
           } else {
             localStorage.removeItem('userToken');
           }
@@ -36,13 +37,27 @@ const Login = () => {
   useEffect(() => {
       window.electron.receiveData((receivedData) => {
         console.log(receivedData, 'from login.jsx')
-        setToken(receivedData);
-      });
-      },
-     []);
 
-  useEffect(()=>{
+        for (let element of receivedData) {
+          // Check if the element contains the token parameter
+          if (element.includes("token=")) {
+            // Extract and return the token value
+            const url = new URL(element);
+            setToken(url.searchParams.get("token"));          
+          }
+        }
+      });
+  },[]);
+
+  useEffect(()=>{async function getJwt() {
     console.log(token)
+    const response = await googleLoginUser({ token: token })
+    console.log(response)
+    localStorage.setItem('userToken', response.data.token);
+
+  }
+  getJwt()
+
   },[token])
 
   const handleSubmit = async (event) => {

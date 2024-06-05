@@ -10,6 +10,15 @@ const API = (token) =>
 
 let url = 'http://localhost:8000';
 
+export const googleLoginUser = async (body) => {
+  try {
+    return await axios.post(`${url}/auth/google`, body);
+  } catch (error) {
+    console.log('error in google-loginuser api');
+  }
+};
+
+
 export const loginUser = async (body) => {
   try {
     return await axios.post(`${url}/auth/login`, body);
