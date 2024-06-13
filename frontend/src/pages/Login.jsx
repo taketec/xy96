@@ -16,6 +16,7 @@ const Login = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
+        console.log(`token in localstorage ${localStorage.getItem('userToken')}`)
         const token = localStorage.getItem('userToken');
 
         if (token) {

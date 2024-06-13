@@ -44,9 +44,9 @@ const Login = () => {
 			description: 'Thank you for nothing. Please give us some money',
 			image: 'http://localhost:1337/logo.svg',
 			handler: function (response) {
-				alert(response.razorpay_payment_id)
-				alert(response.razorpay_order_id)
-				alert(response.razorpay_signature)
+				console.log(response.razorpay_payment_id)
+				console.log(response.razorpay_order_id)
+				console.log(response.razorpay_signature)
 			},
 			prefill: {
 				name: 'shai',

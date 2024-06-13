@@ -38,7 +38,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start-electron": "set ELECTRON_START_URL=http://localhost:3001 && electron .",
-    "package": "electron-builder build --win -c.extraMetadata.main=build/electron.js --publish never",
+    "package": "npm i electron-builder@22.14.13 && electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
     "publish": "electron-builder build --mac --win --publish always"
   },
   "eslintConfig": {
@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "electron": "^30.0.8",
-    "electron-builder": "^24.13.3",
+    "electron-builder": "^22.14.13",
     "react-scripts": "^5.0.1",
     "tailwindcss": "^3.4.3"
   }
