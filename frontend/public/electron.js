@@ -26,13 +26,11 @@ function createWindow() {
             }    
         });    
             win.loadFile(startUrl);    
-            app.on('window-all-closed', () => {
-                        if (process.platform !== 'darwin') {            
-                            app.quit()        
-                        }    });
                     }
 
-app.whenReady().then(createWindow);app.on('window-all-closed', () => {    
+app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {    
     if (process.platform !== 'darwin') {        
         app.quit()    
     }});

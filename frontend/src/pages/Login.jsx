@@ -21,7 +21,7 @@ const Login = () => {
         if (token) {
           const response = await validUser();
           if (response.token) {
-            navigate('/login');
+            navigate('/payment');
           } else {
             localStorage.removeItem('userToken');
           }
@@ -56,7 +56,7 @@ const Login = () => {
     const response = await googleLoginUser({ token: token })
     console.log(response)
     localStorage.setItem('userToken', response.data.token);
-    navigate('/username');
+    navigate('/payment');
     }
   }
   getJwt()
@@ -73,7 +73,7 @@ const Login = () => {
       const token = response.data.token;
 
       localStorage.setItem('userToken', token);
-      navigate('/dashboard');
+      navigate('/payment');
     } catch (error) {
       console.error('Login error:', error);
       setErrorMessage(error.response?.data?.message || 'Login failed');
