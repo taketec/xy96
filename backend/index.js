@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from "mongoose"
 
+import rzpRoutes from './routes/payment.js'
+
 
 mongoose.set('strictQuery', false);
 mongoDBConnect();
@@ -31,6 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(createLog)
 app.use(cors(corsConfig));
 app.use('/', userRoutes);
+app.use('/', rzpRoutes);
 
 
 app.listen(PORT, () => {
