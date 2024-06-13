@@ -24,12 +24,13 @@ export const rzp = async (req, res) => {
 	try {
 		const response = await razorpay.orders.create(options)
 		console.log(response)
-		res.json({
+		return res.json({
 			id: response.id,
 			currency: response.currency,
 			amount: response.amount
 		})
 	} catch (error) {
 		console.log(error)
+        return res.status(500).json({ error: 'Internal Server Error' })
 	}
 }

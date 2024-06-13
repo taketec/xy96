@@ -70,6 +70,7 @@ export const googleLogin = async (req,res) => {
 }
 
 
+
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
@@ -111,10 +112,13 @@ export const login = async (req, res) => {
 
   export const validUser = async (req, res) => {
     try {
+      console.log("valid user called", req.body)
       const validuser = await user
         .findOne({ _id: req.userId })
         .select('-password');
-      if (!validuser) res.json({ message: 'user is not valid' });
+      if (!validuser) {
+        return res.json({ message: 'user is not valid' })
+      };
       return res.status(201).json({
         user: validuser,
         token: req.token,

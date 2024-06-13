@@ -3,15 +3,18 @@ import user from '../models/user.js';
 
 export const Auth = async (req, res, next) => {
   try {
+    
     let token = req.headers.authorization.split(' ')[0]; //when using browser this line
-    // let token = req.headers.authorization.split(' ')[1]; //when using postman this line
-      const verifiedUser = jwt.verify(token, process.env.SECRET||'nevergonnagiveyoupnevergonnaletyoudown');
-      const rootUser = await user
-        .findOne({ _id: verifiedUser.id })
-        .select('-password');
+    console.log(token,"token from middleware")
+      const verifiedUser = jwt.verify(token, process.env.SECRET);
       req.token = token;
-      req.rootUser = rootUser;
-      req.rootUserId = rootUser._id;
+      req.userId = verifiedUser.id
+
+      // to get user data do this 
+      // const rootUser = await user
+      // .findOne({ _id: verifiedUser.id })
+      // .select('-password');
+
 
     next();
   } catch (error) {
