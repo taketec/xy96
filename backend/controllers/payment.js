@@ -2,13 +2,15 @@ import path from 'path'
 import generateId from '../utils'
 import Razorpay from 'razorpay'
 
+const razorpayConfig = {
+	key_id: process.env.rzp_key_id,
+	key_secret: process.env.rzp_key_secret
+  };
 
-const razorpay = new Razorpay({
-	key_id: 'rzp_test_YrTJxdRpuU2aF6',
-	key_secret: 'GUBsfek1MvMszspxdrlJdZws'
-})
+const razorpay = new Razorpay(razorpayConfig)
 
 export const rzp = async (req, res) => {
+	console.log(razorpayConfig)
 	const payment_capture = 1
 	const amount = 499
 	const currency = 'INR'
@@ -31,6 +33,6 @@ export const rzp = async (req, res) => {
 		})
 	} catch (error) {
 		console.log(error)
-        return res.status(500).json({ error: 'Internal Server Error' })
+        return res.status(500).json({ error:error.error })
 	}
 }

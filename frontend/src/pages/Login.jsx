@@ -13,6 +13,8 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState(null);
 
+  const NEXTPAGE = '/three' 
+
   useEffect(() => {
     const checkAuth = async () => {
       try {
@@ -57,7 +59,7 @@ const Login = () => {
     const response = await googleLoginUser({ token: token })
     console.log(response)
     localStorage.setItem('userToken', response.data.token);
-    navigate('/payment');
+    navigate(NEXTPAGE);
     }
   }
   getJwt()
@@ -74,7 +76,7 @@ const Login = () => {
       const token = response.data.token;
 
       localStorage.setItem('userToken', token);
-      navigate('/payment');
+      navigate(NEXTPAGE);
     } catch (error) {
       console.error('Login error:', error);
       setErrorMessage(error.response?.data?.message || 'Login failed');

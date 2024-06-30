@@ -13,6 +13,7 @@ mongoose.set('strictQuery', false);
 mongoDBConnect();
 
 const PORT=process.env.PORT || 8000
+console.log(process.env.rzp_key_id,process.env.rzp_key_secret)
 
 const app = express();
 const corsConfig = {

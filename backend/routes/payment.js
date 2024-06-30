@@ -1,8 +1,5 @@
-import {rzp
-  } from '../controllers/payment.js';
-  import express from 'express';
-
-  import { Auth } from '../middleware/auth.js';
+import { rzp } from '../controllers/payment.js';
+import express from 'express';
 
 const router = express.Router();
 
