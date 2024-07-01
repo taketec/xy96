@@ -39,7 +39,8 @@ export const rzp = async (req, res) => {
 
 export const rzp_webhook = async (req, res) => {
 	console.log("################ this is the reverse api call ###################################")
-	console.log(req.body, req.body.payload.order)
+	console.log(req.headers)
+	console.log(req.body,req.body.payload.payment, req.body.payload.order)
 	
 	return res.json({
 		data:"order succeded"
