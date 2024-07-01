@@ -36,3 +36,12 @@ export const rzp = async (req, res) => {
         return res.status(500).json({ error:error.error })
 	}
 }
+
+export const rzp_webhook = async (req, res) => {
+	console.log("################ this is the reverse api call ###################################")
+	console.log(req.body, req.body.payload.order)
+	
+	return res.json({
+		data:"order succeded"
+	})
+}

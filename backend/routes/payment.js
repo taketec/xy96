@@ -1,10 +1,11 @@
-import { rzp } from '../controllers/payment.js';
+import { rzp, rzp_webhook } from '../controllers/payment.js';
 import express from 'express';
 
 const router = express.Router();
 
 
 router.post('/razorpay', rzp);
+router.post('/razorpay-callback', rzp_webhook);
 
 //all of the endpoints required for authentication are managed in the user controller and user routes
 //all of the auth endpoints will be at /auth

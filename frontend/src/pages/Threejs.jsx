@@ -1,24 +1,37 @@
-import React, { useState, useRef, useEffect, useCallback, Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
-import * as THREE from 'three';
+import { MeshBasicMaterial } from "three"
 
 function Model({ url }) {
-  const { scene } = useGLTF(url);
+  const { scene, nodes } = useGLTF(url);
+
+  // Function to create a custom material for the mesh
+  const createMaterial = (mesh) => {
+    const geometry = mesh.geometry;
+    if (geometry.attributes.color) {
+      const colors = geometry.attributes.color.array;
+      const material = new MeshBasicMaterial({ vertexColors: THREE.VertexColors });
+      material.setValues({ colors });
+      return material;
+    }
+    // Handle meshes without vertex colors (optional)
+    return new MeshBasicMaterial({ color: 'gray' }); // Set a fallback color
+  };
+
+  // Loop through scene children and set materials
+  useEffect(() => {
+    const meshes = scene.children.filter((child) => child.isMesh);
+    meshes.forEach((mesh) => {
+      mesh.material = createMaterial(mesh);
+    });
+  }, [scene]);
+
   return <primitive object={scene} />;
 }
 
-export default function Threejs() {
+export default function App() {
   const [fileUrl, setFileUrl] = useState(null);
-
-  useEffect(() => {
-    scene.traverse((child) => {
-      if (child.isMesh) {
-        // Enable vertex colors on the material
-        child.material.vertexColors = THREE.VertexColors;
-      }
-    });
-  }, [scene]);
 
   const handleFileChange = useCallback((event) => {
     const file = event.target.files[0];
@@ -35,7 +48,7 @@ export default function Threejs() {
         <Canvas>
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
-            <Model url={fileUrl} />
+          <Model url={fileUrl} />
           <OrbitControls />
         </Canvas>
       )}

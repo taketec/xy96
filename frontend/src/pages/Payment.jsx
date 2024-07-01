@@ -42,7 +42,7 @@ const Login = () => {
 			order_id: data.id,
 			name: 'Donation',
 			description: 'Thank you for nothing. Please give us some money',
-			image: 'http://localhost:1337/logo.svg',
+			image: 'https://lh3.googleusercontent.com/a/ACg8ocKOya8vf1PaL34inwDaw1gYkoeHV8MbUTPxOvCEw4EnuC5L0m-o=s96-c',
 			handler: function (response) {
 				console.log(response.razorpay_payment_id)
 				console.log(response.razorpay_order_id)
