@@ -1,6 +1,9 @@
 import path from 'path'
 import generateId from '../utils'
 import Razorpay from 'razorpay'
+import order from '../models/order.js';
+import user from '../models/user.js';
+import jwt from 'jsonwebtoken';
 
 const razorpayConfig = {
 	key_id: process.env.rzp_key_id,
@@ -10,7 +13,19 @@ const razorpayConfig = {
 const razorpay = new Razorpay(razorpayConfig)
 
 export const rzp = async (req, res) => {
-	console.log(razorpayConfig)
+	
+	let token = req.headers.authorization.split(' ')[0]; //when using browser this line
+    console.log(token,"token from middleware")
+    const verifiedUser = jwt.verify(token, process.env.SECRET);
+    req.token = token;
+    req.userId = verifiedUser.id
+
+	const validuser = await user
+	.findOne({ _id: req.userId })
+	.select('-password');
+
+	console.log(validuser)
+
 	const payment_capture = 1
 	const amount = 499
 	const currency = 'INR'

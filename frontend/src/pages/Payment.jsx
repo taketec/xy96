@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { createOrder } from '../apis/auth';
+
 
 function loadScript(src) {
 	return new Promise((resolve) => {
@@ -16,7 +18,7 @@ function loadScript(src) {
 	})
 }
 
-const Login = () => {
+const Razorpay = () => {
 
     async function displayRazorpay() {
 		const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
@@ -26,7 +28,7 @@ const Login = () => {
 			return
 		}
 
-        const data = await axios.post('http://localhost:8000/razorpay')
+        const data = await createOrder()
         .then(response => response.data)
         .catch(error => {
           console.error('There was an error making the request:', error);
@@ -71,4 +73,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Razorpay;

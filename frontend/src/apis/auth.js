@@ -51,3 +51,16 @@ export const validUser = async () => {
     console.log('error in valid user api');
   }
 };
+
+export const createOrder = async () => {
+  try {
+    const token = localStorage.getItem('userToken');
+
+    const data  = await API(token).post(`/razorpay`, {
+      headers: { Authorization: token },
+    });
+    return data;
+  } catch (error) {
+    console.log('error in orders api');
+  }
+};
