@@ -4,7 +4,8 @@ import user from '../models/user.js';
 export const Auth = async (req, res, next) => {
   try {
     
-    let token = req.headers.authorization.split(' ')[0]; //when using browser this line
+    let token = req.headers.authorization.split(' ')[1]; //when using postman this line
+    //let token = req.headers.authorization.split(' ')[0]; //when using browser this line
     console.log(token,"token from middleware")
       const verifiedUser = jwt.verify(token, process.env.SECRET);
       req.token = token;

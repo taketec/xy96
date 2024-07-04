@@ -7,5 +7,8 @@ export default function generateId(length) {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
 
-    return result;
+    const currentTime = new Date().toISOString(); // ISO format includes the date and time
+    const prefix = 'receipt_';
+
+    return `${prefix}${currentTime}${result}`;
 }

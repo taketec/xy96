@@ -1,11 +1,15 @@
-import { rzp, rzp_webhook } from '../controllers/payment.js';
+import { rzp, rzp_webhook, get_credits, get_latest_credits } from '../controllers/payment.js';
 import express from 'express';
+import { Auth } from '../middleware/auth.js';
+
 
 const router = express.Router();
 
 
 router.post('/razorpay', rzp);
 router.post('/razorpay-callback', rzp_webhook);
+router.get('/get-credits', Auth, get_credits);
+router.get('/get-latest-credits', Auth, get_latest_credits);//route meant to be polled
 
 //all of the endpoints required for authentication are managed in the user controller and user routes
 //all of the auth endpoints will be at /auth

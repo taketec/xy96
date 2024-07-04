@@ -12,7 +12,7 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    reciept: {
+    receipt: {
       type: String,
       required: true,
     },
@@ -31,5 +31,5 @@ const orderSchema = mongoose.Schema(
 );
 
 
-const userModel = mongoose.model('Order', orderSchema);
-export default userModel;
+const orderModel = mongoose.model('Order', orderSchema);
+export default orderModel;

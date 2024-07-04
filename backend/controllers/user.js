@@ -32,6 +32,7 @@ export const googleLogin = async (req,res) => {
       })
       .then(async response => {
         const username = response.data.name;
+        const profile = response.data.picture
         const email = response.data.email;
         console.log(response.data)
         console.log(username)
@@ -47,7 +48,7 @@ export const googleLogin = async (req,res) => {
             }
           );
           console.log(password)
-          const newuser = new user({ email, password,name: username });
+          const newuser = new user({ email, password,name: username, profilePic:profile });
           const token = await newuser.generateAuthToken();
           await newuser.save();
           return res.json({ message: 'success', token: token });
