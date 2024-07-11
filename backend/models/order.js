@@ -30,6 +30,18 @@ const orderSchema = mongoose.Schema(
   }
 );
 
+orderSchema.methods.addCredits = function (credits,receipt) {
+  try {
+    this.lastPayment = receipt
+    this.credits += credits
+    return this.save();
+  } catch (error) {
+    console.log('error while adding credits');
+  }
+};
+
 
 const orderModel = mongoose.model('Order', orderSchema);
+
+
 export default orderModel;

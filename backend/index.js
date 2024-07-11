@@ -8,6 +8,9 @@ import mongoose from "mongoose"
 
 import rzpRoutes from './routes/payment.js'
 
+import fooocusRoutes from './routes/fooocus.js'
+import zoedepthRoutes from './routes/zoedepth.js'
+import triposrRoutes from './routes/triposr.js'
 
 mongoose.set('strictQuery', false);
 mongoDBConnect();
@@ -35,7 +38,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsConfig));
 app.use('/', userRoutes);
 app.use('/', rzpRoutes);
-
+app.use('/fooocus', fooocusRoutes);
+app.use('/zoedepth', zoedepthRoutes);
+app.use('/triposr', triposrRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server Listening at PORT - ${PORT}`);

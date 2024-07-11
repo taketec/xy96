@@ -2,7 +2,7 @@ import argon2 from "argon2";
 import user from '../models/user.js';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-
+import replicate from "../replicate/replicate.js";
 
 export const googleLogin = async (req,res) => {
   try {
@@ -170,5 +170,14 @@ export const login = async (req, res) => {
   //   }
   // };
   
-
+  export const cancel_prediction = async (req, res)  => {
+    try{  
+      const response = await replicate.predictions.cancel(req.body.prediction);
+      return res.json(response)  
+    }catch(error){
+      console.error(error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  }
+  
   

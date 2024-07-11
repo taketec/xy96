@@ -21,7 +21,7 @@ export const rzp = async (req, res) => {
     console.log(token,"token from middleware")
     const verifiedUser = jwt.verify(token, process.env.SECRET);
 	
-	if (!verifiedUser){return res.status(440).json({ error:"uers session expired or doesnt exist, login again or signup." })}//if the user doesnt have a token
+	if (!verifiedUser){return res.status(440).json({ error:"users session expired or doesnt exist, login again or signup." })}//if the user doesnt have a token
     
 	req.token = token;
     req.userId = verifiedUser.id
@@ -178,7 +178,7 @@ export const get_latest_credits = async (req,res) => {
 			}else{return res.status(200).json({	receipt : req.body.latest_receipt
 			})}
 
-		}else{return res.status(440).json({ error:"user hasnt made any payments, this is a mistake, just like your existence" })}
+		}else{return res.status(440).json({ error:"user hasnt made any payments, this is a mistake" })}
 	}catch(error){
 		console.error(error);
         return res.status(500).json({ error: "Internal server error" });

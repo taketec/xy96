@@ -53,7 +53,7 @@ userSchema.methods.generateAuthToken = async function () {
         expiresIn: '24h',
       }
     );
-
+    console.log(token)
     return token;
   } catch (error) {
     console.log('error while generating token');
@@ -76,13 +76,24 @@ userSchema.methods.subtractCredits = function (amount) {
 
       this.credits -= amount
 
-    }else{ return 'not' }
+    }else{ return null }
     return this.save();
   } catch (error) {
     console.log('error while adding credits');
   }
 };
 
+userSchema.methods.checkCredits = function (amount) {
+  try {
+    if ( this.credits >= amount ){
+
+      return true
+
+    }else{ return false }
+  } catch (error) {
+    console.log('error while checking credits');
+  }
+};
 
 
 const userModel = mongoose.model('User', userSchema);
