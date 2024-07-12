@@ -1,9 +1,19 @@
-import React, { useState, useRef, useEffect, useCallback, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useState, useCallback, Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
+
+  // Traverse the scene to update materials to use vertex colors
+  scene.traverse((child) => {
+    console.log(child)
+    if (child instanceof THREE.Mesh) {
+      child.material.vertexColors = true;
+    }
+  });
+
   return <primitive object={scene} />;
 }
 
@@ -24,6 +34,12 @@ export default function App() {
       {fileUrl && (
         <Canvas>
           <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 10]} intensity={1} />
+          <directionalLight position={[-10, 10, 10]} intensity={1} />
+          <directionalLight position={[10, -10, 10]} intensity={1} />
+          <directionalLight position={[10, 10, -10]} intensity={1} />
+          <directionalLight position={[-10, -10, 10]} intensity={1} />
+          <directionalLight position={[-10, 10, -10]} intensity={1} />    
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
             <Model url={fileUrl} />
