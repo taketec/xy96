@@ -40,7 +40,7 @@ export const create_prediction = async (req,res) => {
                 outpaint_distance_bottom: 0,
                 inpaint_additional_prompt: ""
               },
-            webhook: "https://5598-115-96-161-48.ngrok-free.app/fooocus/receive_prediction",
+            webhook: "https://e9d1-116-75-159-18.ngrok-free.app/fooocus/receive_prediction",
             webhook_events_filter: ["start","output","completed"], 
           });
 

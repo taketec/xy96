@@ -1,7 +1,7 @@
 {
-  "name": "stream-sync-server",
+  "name": "xy-96-server",
   "version": "1.0.0",
-  "description": "expressjs server for stream sync ",
+  "description": "expressjs server for xy96 ",
   "main": "index.js",
   "type": "module",
   "scripts": {

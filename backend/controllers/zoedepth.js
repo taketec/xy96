@@ -26,7 +26,7 @@ export const create_prediction = async (req,res) => {
               image: image,
               model_type: "ZoeD_N"
               },
-            webhook: "https://5598-115-96-161-48.ngrok-free.app/zoedepth/receive_prediction",
+            webhook: "https://e9d1-116-75-159-18.ngrok-free.app/zoedepth/receive_prediction",
             webhook_events_filter: ["start","output","completed"], 
           });
 
