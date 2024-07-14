@@ -27,20 +27,22 @@ export default function App() {
       setFileUrl(url);
     }
   }, []);
-
+  const dist = 1
   return (
-    <div style={{ height: '100vh' }}>
+    <div className="h-screen bg-gray-800">
       <input type="file" accept=".glb" onChange={handleFileChange} />
       {fileUrl && (
-        <Canvas>
+        <Canvas className="bg-gray-800">
           <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 10]} intensity={1} />
-          <directionalLight position={[-10, 10, 10]} intensity={1} />
-          <directionalLight position={[10, -10, 10]} intensity={1} />
-          <directionalLight position={[10, 10, -10]} intensity={1} />
-          <directionalLight position={[-10, -10, 10]} intensity={1} />
-          <directionalLight position={[-10, 10, -10]} intensity={1} />    
-          <pointLight position={[10, 10, 10]} />
+          <directionalLight position={[dist, dist, dist]} intensity={1} />
+          <directionalLight position={[-dist, dist, dist]} intensity={1} />
+          <directionalLight position={[dist, -dist, dist]} intensity={1} />
+          <directionalLight position={[-dist, -dist, dist]} intensity={1} />
+          <directionalLight position={[dist, dist, -dist]} intensity={1} />
+          <directionalLight position={[-dist, dist, -dist]} intensity={1} />
+          <directionalLight position={[dist, -dist, -dist]} intensity={1} />
+          <directionalLight position={[-dist, -dist, -dist]} intensity={1} /> 
+          {/* <pointLight position={[0, 0, 0]} intensity={50} /> */}
           <Suspense fallback={null}>
             <Model url={fileUrl} />
           </Suspense>

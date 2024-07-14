@@ -24,7 +24,7 @@ const Login = () => {
         if (token) {
           const response = await validUser();
           if (response.token) {
-            navigate('/payment');
+            navigate(NEXTPAGE);
           } else {
             localStorage.removeItem('userToken');
           }
