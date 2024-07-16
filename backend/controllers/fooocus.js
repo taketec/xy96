@@ -41,7 +41,7 @@ export const create_prediction = async (req,res) => {
                 inpaint_additional_prompt: ""
               },
             webhook: "https://e9d1-116-75-159-18.ngrok-free.app/fooocus/receive_prediction",
-            webhook_events_filter: ["start","output","completed"], 
+            webhook_events_filter: ["start","output","completed","canceled"], 
           });
 
           const prediction = new Prediction({

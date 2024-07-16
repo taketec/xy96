@@ -151,6 +151,7 @@ export const get_credits = async (req,res) => {
 
 		console.log(validuser)
 
+		console.log(validuser.credits)
 		return res.status(200).json({
 			credits:validuser.credits 
 		})

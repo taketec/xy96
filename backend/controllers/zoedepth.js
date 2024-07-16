@@ -27,7 +27,7 @@ export const create_prediction = async (req,res) => {
               model_type: "ZoeD_N"
               },
             webhook: "https://e9d1-116-75-159-18.ngrok-free.app/zoedepth/receive_prediction",
-            webhook_events_filter: ["start","output","completed"], 
+            webhook_events_filter: ["start","output","completed","canceled"], 
           });
 
           const prediction = new Prediction({
