@@ -1,11 +1,5 @@
 import axios from 'axios';
-
-
-const API = (token) =>
-  axios.create({
-    baseURL: 'http://localhost:8000',
-    headers: { Authorization: token },
-  });
+import { API } from './api';
 
 
 let url = 'http://localhost:8000';

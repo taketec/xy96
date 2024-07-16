@@ -13,7 +13,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [token, setToken] = useState(null);
 
-  const NEXTPAGE = '/three' 
+  const NEXTPAGE = '/main' 
 
   useEffect(() => {
     const checkAuth = async () => {

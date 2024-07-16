@@ -4,7 +4,8 @@ import Login from './pages/Login'; // Import your Login component
 import Register from './pages/Register';
 import Username from './pages/Username'; // Import your Username component
 import Payment from './pages/Payment'
-import Threejs from './pages/Threejs';
+import Threejs from './components/Threejs';
+import MainPage from './pages/MainPage';
 function App() {
   return (
     <Router>
@@ -14,6 +15,8 @@ function App() {
         <Route path="/username" element={<Username />} /> {/* New route for Username component */}
         <Route path="/payment" element={<Payment />} />
         <Route path="/three" element={<Threejs />} />
+        <Route path="/main" element={<MainPage />} />
+
         <Route
             exact
             path="/"
