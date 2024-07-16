@@ -27,14 +27,17 @@ export const CreditsContextProvider = ({ children }: { children: ReactNode }) =>
 
   const createFooocusPrediction = async () => {
     //api call + set up polling
+    //setstate(res.data)
+    //if state = processing, call the get credits api??? how do we do that or just do it from the internal components.
+    //if output || cancelled, setstatus , stop polling
   }
   
   const createZoedepthPrediction = async () => {
-    //api call + set up polling
+    //same as the above
   }
 
   const createTriposrPrediction = async () => {
-    //api call + set up polling
+    //same as the above
   }
 
 
