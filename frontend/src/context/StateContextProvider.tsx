@@ -1,42 +1,43 @@
 
 import React, { createContext, useContext, useState , ReactNode } from 'react';
 import { get_credits} from '../apis/api';
+import { create_fooocus_prediction } from '../apis/api';
+import { AspectRatioOption, QualityOption } from '../components/Imto3d';
 
-interface prediction {
-  id: string,
-  status:string,
-  type:string,
-  output?:string
-}
+import { Istatus } from '../apis/api';
 
 interface StateContextType {
-  fooocusStatus: prediction | null; 
-  zoedepthStatus: prediction | null; 
-  triposrStatus: prediction | null; 
-  createFooocusPrediction: () => Promise<void>;
-  createZoedepthPrediction: () => Promise<void>;
-  createTriposrPrediction: () => Promise<void>;
+  fooocusStatus: Istatus | null; 
+  zoedepthStatus: Istatus | null; 
+  triposrStatus: Istatus | null; 
+  createFooocusPrediction: ( data: {prompt:string ,aspectRatio:AspectRatioOption, quality :QualityOption} )  => Promise<void>;
+  createZoedepthPrediction: () => void;
+  createTriposrPrediction: () => void;
 }
 
 const StateContext = createContext<StateContextType | undefined>(undefined);
 
-export const CreditsContextProvider = ({ children }: { children: ReactNode }) => {
-  const [fooocusStatus, setFooocusStatus] = useState<prediction | null>(null);
-  const [zoedepthStatus, setZoedepthStatus] = useState<prediction | null>(null);
-  const [triposrStatus, setTriposrStatus] = useState<prediction | null>(null);
+export const StateContextProvider = ({ children }: { children: ReactNode }) => {
+  const [fooocusStatus, setFooocusStatus] = useState<Istatus | null>(null);
+  const [zoedepthStatus, setZoedepthStatus] = useState<Istatus | null>(null);
+  const [triposrStatus, setTriposrStatus] = useState<Istatus | null>(null);
 
-  const createFooocusPrediction = async () => {
+  const createFooocusPrediction = async ( data: {prompt:string ,aspectRatio:AspectRatioOption, quality :QualityOption} ) => {
     //api call + set up polling
     //setstate(res.data)
     //if state = processing, call the get credits api??? how do we do that or just do it from the internal components.
     //if output || cancelled, setstatus , stop polling
+    let res = await create_fooocus_prediction(data)
+    console.log(res?.data)
   }
   
-  const createZoedepthPrediction = async () => {
+  const createZoedepthPrediction =  () => {
     //same as the above
+
+  
   }
 
-  const createTriposrPrediction = async () => {
+  const createTriposrPrediction =  () => {
     //same as the above
   }
 

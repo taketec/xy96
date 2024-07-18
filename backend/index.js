@@ -32,6 +32,8 @@ const createLog = (req, res, next) => {
   next();
 };
 
+console.log(process.env.REPLICATE_API_TOKEN)
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(createLog)

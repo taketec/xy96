@@ -5,4 +5,6 @@ import Replicate from "replicate";
     auth: process.env.REPLICATE_API_TOKEN,
   });
 
+
+
 export default replicate

@@ -84,22 +84,25 @@ export const get_status = async (req ,res) => {
     const id = req.body.id
     console.log(id)
     const prediction = await Prediction.findOne({ id });
-    if (prediction.output){
-      return res.json({
-        id: prediction.id,
-        status:prediction.status.Prediction,
-        type:prediction.type,
-        output:prediction.output
-      })}
-    else{
-      return res.json({
+    if(req.userId==prediction.user){
+      if (prediction.output){
+        return res.json({
           id: prediction.id,
-          status:prediction.status.Prediction,
+          status:prediction.status,
           type:prediction.type,
-        }  
-      )
+          output:prediction.output
+        })}
+      else{
+        return res.json({
+            id: prediction.id,
+            status:prediction.status.Prediction,
+            type:prediction.type,
+          }  
+        )
+      }
+    }else{
+      return res.status(401).json({ error: "Unauthorized Access" });
     }
-
   }catch(error){		
     console.error(error);
 		return res.status(500).json({ error: "Internal server error" });

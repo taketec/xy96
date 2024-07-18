@@ -27,7 +27,7 @@ export const create_prediction = async (req,res) => {
               model_type: "ZoeD_N"
               },
             webhook: "https://e9d1-116-75-159-18.ngrok-free.app/zoedepth/receive_prediction",
-            webhook_events_filter: ["start","output","completed","canceled"], 
+            webhook_events_filter: ["start","output","completed"], 
           });
 
           const prediction = new Prediction({
@@ -88,21 +88,27 @@ export const get_status = async (req ,res) => {
     const id = req.body.id
     console.log(id)
     const prediction = await Prediction.findOne({ id });
+
+    console.log(prediction)
+    if(req.userId==prediction.user){
     if (prediction.output){
       return res.json({
         id: prediction.id,
-        status:prediction.status.Prediction,
+        status:prediction.status,
         type:prediction.type,
         output:prediction.output
       })}
     else{
       return res.json({
           id: prediction.id,
-          status:prediction.status.Prediction,
+          status:prediction.status,
           type:prediction.type,
         }  
       )
     }
+  }else{
+    return res.status(401).json({ error: "Unauthorized Access" });
+  }
 
   }catch(error){		
     console.error(error);

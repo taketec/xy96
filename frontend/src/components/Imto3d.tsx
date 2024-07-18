@@ -1,20 +1,23 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { get_credits } from '../apis/api';
 import { useCreditsContext } from '../context/CreditsContextProvider';
+import { useStateContext } from '../context/StateContextProvider';
 
-type QualityOption = 'Low' | 'Medium' | 'High';
-type AspectRatioOption = '16:9' | '4:3' | '1:1';
+export type QualityOption = 'Speed'| 'Quality'| 'Extreme Speed'| 'Lightning'
+export type AspectRatioOption =     "704*1408"|"704*1344"|"768*1344"|"768*1280"|"832*1216"|"832*1152"|"896*1152"|"896*1088"|"960*1088"|"960*1024"|"1024*1024"|"1024*960"|"1088*960"|"1088*896"|"1152*896"|"1152*832"|"1216*832"|"1280*768"|"1344*768"|"1344*704"|"1408*704"|"1472*704"|"1536*640"|"1600*640"|"1664*576"|"1728*576"
 
-const qualityOptions: QualityOption[] = ['Low', 'Medium', 'High'];
-const aspectRatioOptions: AspectRatioOption[] = ['16:9', '4:3', '1:1'];
+const qualityOptions: QualityOption[] = ['Speed', 'Quality', 'Extreme Speed', 'Lightning'];
+const aspectRatioOptions: AspectRatioOption[] = ["704*1408","704*1344","768*1344","768*1280","832*1216","832*1152","896*1152","896*1088","960*1088","960*1024","1024*1024","1024*960","1088*960","1088*896","1152*896","1152*832","1216*832","1280*768","1344*768","1344*704","1408*704","1472*704","1536*640","1600*640","1664*576","1728*576"];
 
 
 const Imto3d = () => {
   const [prompt, setPrompt] = useState<string>('');
-  const [quality, setQuality] = useState<QualityOption>('Medium');
-  const [aspectRatio, setAspectRatio] = useState<AspectRatioOption>('16:9');
+  const [quality, setQuality] = useState<QualityOption>('Extreme Speed');
+  const [aspectRatio, setAspectRatio] = useState<AspectRatioOption>('704*1408');
 
   const { credits, getCredits } = useCreditsContext();
+
+  const {fooocusStatus, zoedepthStatus ,triposrStatus, createFooocusPrediction, createZoedepthPrediction ,createTriposrPrediction} = useStateContext();
 
   useEffect(() => {
     getCredits();
@@ -27,23 +30,10 @@ const Imto3d = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = { prompt, quality, aspectRatio };
+    const data = { prompt:prompt, quality:quality, aspectRatio:aspectRatio};
     
     try {
-      const response = await fetch('https://api.example.com/image-to-3d', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const result = await response.json();
-      console.log('Success:', result);
+      await createFooocusPrediction({prompt,aspectRatio,quality})
     } catch (error) {
       console.error('Error:', error);
     }

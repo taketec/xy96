@@ -7,6 +7,8 @@ backend/node_modules
 # testing
 frontend/coverage
 
+backend/.env
+
 # production
 frontend/build
 frontend/dist
