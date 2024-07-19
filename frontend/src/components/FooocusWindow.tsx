@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { get_credits } from '../apis/api';
 import { useCreditsContext } from '../context/CreditsContextProvider';
 import { useStateContext } from '../context/StateContextProvider';
+import Razorpay from "./Payment"
 
 export type QualityOption = 'Speed'| 'Quality'| 'Extreme Speed'| 'Lightning'
 export type AspectRatioOption =     "704*1408"|"704*1344"|"768*1344"|"768*1280"|"832*1216"|"832*1152"|"896*1152"|"896*1088"|"960*1088"|"960*1024"|"1024*1024"|"1024*960"|"1088*960"|"1088*896"|"1152*896"|"1152*832"|"1216*832"|"1280*768"|"1344*768"|"1344*704"|"1408*704"|"1472*704"|"1536*640"|"1600*640"|"1664*576"|"1728*576"
@@ -25,7 +26,6 @@ const FooocusWindow = () => {
 
   useEffect(() => {console.log(credits)  }, [credits]);
 
-  useEffect(()=>{console.log(fooocusStatus)},[fooocusStatus])
 
 
 
@@ -42,6 +42,7 @@ const FooocusWindow = () => {
 
   return (
     <div className="max-w-md mx-auto p-4 bg-white shadow-md rounded-lg">
+      <Razorpay refreshCredits={getCredits}/>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
         <p>Credits: {credits !== null ? credits : 'Loading...'}</p>

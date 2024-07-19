@@ -7,7 +7,7 @@ import Imto3d from '../components/Imto3d';
 const TestComponent = () => {
     return (
         <div className="bg-purple-500 w-full h-full flex items-center justify-center">
-            Test Box
+            ongoing
       </div>
     );
   };

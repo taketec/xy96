@@ -1,7 +1,8 @@
-import React, { useState, useCallback, Suspense } from 'react';
+import React, { useState, useCallback, Suspense,useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { useStateContext } from '../context/StateContextProvider';
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
@@ -18,6 +19,8 @@ function Model({ url }) {
 export default function Threejs() {
   const [fileUrl, setFileUrl] = useState(null);
 
+  const { zoedepthStatus } = useStateContext();
+
   const handleFileChange = useCallback((event) => {
     const file = event.target.files[0];
     if (file) {
@@ -27,6 +30,13 @@ export default function Threejs() {
   }, []);
 
   const dist = 1;
+
+  useEffect(() => {
+    console.log(zoedepthStatus)
+    if (zoedepthStatus && zoedepthStatus.output) {
+      setFileUrl(zoedepthStatus.output);
+    }
+  }, [zoedepthStatus]);
 
   return (
     <div className="bg-gray-800 h-full w-full flex items-center justify-center overflow-hidden">

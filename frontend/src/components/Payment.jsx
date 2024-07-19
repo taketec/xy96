@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { createOrder } from '../apis/auth';
-
+import { useCreditsContext } from '../context/CreditsContextProvider';
 
 function loadScript(src) {
 	return new Promise((resolve) => {
@@ -18,7 +18,8 @@ function loadScript(src) {
 	})
 }
 
-const Razorpay = () => {
+const Razorpay = ({refreshCredits}) => {
+	const {getCredits} = useCreditsContext()
 
     async function displayRazorpay() {
 		const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js')
@@ -47,10 +48,12 @@ const Razorpay = () => {
 			
 			,
 			image: 'https://lh3.googleusercontent.com/a/ACg8ocKOya8vf1PaL34inwDaw1gYkoeHV8MbUTPxOvCEw4EnuC5L0m-o=s96-c',
-			handler: function (response) {
+			handler: async function (response) {
 				console.log(response.razorpay_payment_id)
 				console.log(response.razorpay_order_id)
 				console.log(response.razorpay_signature)
+				await setTimeout(refreshCredits, 2000);
+				console.log("credits fetched")
 			},
 		}
 		const paymentObject = new window.Razorpay(options)
@@ -59,14 +62,12 @@ const Razorpay = () => {
 
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-[#2c2f33]">
             <button 
                 className="App-link" 
                 onClick={displayRazorpay}
             >
                 RZP button
             </button>
-        </div>
     );
 };
 

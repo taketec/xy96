@@ -3,9 +3,10 @@ import { HashRouter as Router, Navigate, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'; // Import your Login component
 import Register from './pages/Register';
 import Username from './pages/Username'; // Import your Username component
-import Payment from './pages/Payment'
+import Payment from './components/Payment'
 import Threejs from './components/Threejs';
 import MainPage from './pages/MainPage';
+
 function App() {
   return (
     <Router>
