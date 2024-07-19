@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { AspectRatioOption } from '../components/Imto3d';
-import { QualityOption } from '../components/Imto3d';
+import { AspectRatioOption } from '../components/FooocusWindow';
+import { QualityOption } from '../components/FooocusWindow';
 export const API = (token:string|null) =>
     axios.create({
       baseURL: 'http://localhost:8000',
@@ -26,15 +26,57 @@ export const create_fooocus_prediction = async (data:{prompt:string ,aspectRatio
   try {
     const token = localStorage.getItem('userToken');
 
-    const res  = await API(token).post<{prediction:string}>(`/fooocus/create`, {
-      headers: { Authorization: token },
-      data: data
-    });
+    const res  = await API(token).post<{prediction_id:string}>(`/fooocus/create`,{
+      prompt: data.prompt,
+      aspect_ratios_selection: data.aspectRatio,
+      performance_selection: data.quality
+    },
+    {
+      headers: { Authorization: token }
+    }
+  );
     return res;
   } catch (error) {
-    console.log('error in orders api');
+    console.log('error in fooocus prediction creation api');
   }
 };
+export const create_zoedepth_prediction = async (data:{url:string} ) => {
+  try {
+    const token = localStorage.getItem('userToken');
+
+    const res  = await API(token).post<{prediction_id:string}>(`/zoedepth/create`,{
+      image:data.url
+    },
+    {
+      headers: { Authorization: token }
+    }
+  );
+    return res;
+  } catch (error) {
+    console.log('error in zoedepth prediction creation api');
+  }
+};
+
+
+export const create_triposr_prediction = async (data:{url:string} ) => {
+  try {
+    const token = localStorage.getItem('userToken');
+
+    const res  = await API(token).post<{prediction_id:string}>(`/triposr/create`,{
+      image:data.url
+    },
+    {
+      headers: { Authorization: token }
+    }
+  );
+    return res;
+  } catch (error) {
+    console.log('error in zoedepth prediction creation api');
+  }
+};
+
+
+
 
 
 // get focus prediction
@@ -52,16 +94,16 @@ export interface Istatus {
   output?: string
 }
 
-export const get_prediction_status = async (prediction:string,model:Tmodel) => {
+export const get_prediction_status = async (prediction_id:string,model:Tmodel) => {
   try {
     const token = localStorage.getItem('userToken');
 
     const res  = await API(token).post<Istatus>(`/${model}/status`, {
       headers: { Authorization: token },
-      id:prediction
+      id:prediction_id
     });
     return res;
   } catch (error) {
-    console.log('error in orders api');
+    console.log('error in status api');
   }
 };

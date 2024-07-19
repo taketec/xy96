@@ -14,7 +14,7 @@ export const create_prediction = async (req,res) => {
         return res.status(422).json({error: "insufficient funds"})
       }
       
-      console.log(req.body.performance_selection,req.body.aspect_ratios_selection)
+      console.log(req.body.prompt,req.body.performance_selection,req.body.aspect_ratios_selection)
     
       const start = await replicate.predictions.create({
             version: "612fd74b69e6c030e88f6548848593a1aaabe16a09cb79e6d714718c15f37f47",
@@ -42,7 +42,7 @@ export const create_prediction = async (req,res) => {
                 outpaint_distance_bottom: 0,
                 inpaint_additional_prompt: ""
               },
-            webhook: "https://fef5-116-75-133-130.ngrok-free.app/fooocus/receive_prediction",
+            webhook: "https://061a-115-96-175-204.ngrok-free.app/fooocus/receive_prediction",
             webhook_events_filter: ["start","output","completed"], 
           });
 
@@ -114,7 +114,7 @@ export const get_status = async (req ,res) => {
       else{
         return res.json({
             id: prediction.id,
-            status:prediction.status.Prediction,
+            status:prediction.status,
             type:prediction.type,
           }  
         )

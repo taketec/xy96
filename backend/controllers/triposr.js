@@ -21,7 +21,7 @@ export const create_prediction = async (req,res) => {
               foreground_ratio: 0.85,
               do_remove_background: false
             },
-            webhook: "https://e9d1-116-75-159-18.ngrok-free.app/triposr/receive_prediction",
+            webhook: "https://061a-115-96-175-204.ngrok-free.app/triposr/receive_prediction",
             webhook_events_filter: ["start","output","completed","canceled"], 
           });
 
@@ -95,7 +95,7 @@ export const get_status = async (req ,res) => {
       else{
         return res.json({
             id: prediction.id,
-            status:prediction.status.Prediction,
+            status:prediction.status,
             type:prediction.type,
           }  
         )
