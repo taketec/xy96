@@ -10,7 +10,7 @@ XY96 is a powerful tool designed to streamline the creation of background enviro
 
  - ## Final output in blender - 
 ![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.gif)
-
+(note:corrections can be made to the final output easily)
  - ## Razorpay gateway integration - 
 ![](https://github.com/taketec/xy96/blob/main/previews/vlc-record-2024-07-21-22h51m25s-React-App-.gif)
 
