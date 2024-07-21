@@ -13,6 +13,8 @@
  - ## image to 3d - 
 ![](https://github.com/taketec/xy96/blob/main/previews/imageto3d_preview.gif)
 
+ - ## output in blender - 
+![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.gif)
 
 
 ## Features i would love to implement later with time - (from most important to least)
