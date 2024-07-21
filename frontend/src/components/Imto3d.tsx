@@ -11,8 +11,14 @@ const Imto3d = () => {
   const {fooocusStatus, zoedepthStatus ,triposrStatus, createFooocusPrediction, createZoedepthPrediction ,createTriposrPrediction} = useStateContext();
 
   useEffect(() => {
-    console.log(fooocusStatus);
-  }, [fooocusStatus]);
+    console.log(fooocusStatus,zoedepthStatus);
+    if(fooocusStatus?.status!="starting"||fooocusStatus?.status!="starting"){
+      setTimeout(getCredits,
+        1000
+      )
+    }
+  }, [fooocusStatus,zoedepthStatus]);
+
 
   const handleFinalizeClick = () =>{
     if (fooocusStatus && fooocusStatus.output){

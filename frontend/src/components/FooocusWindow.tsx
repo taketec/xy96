@@ -45,7 +45,7 @@ const FooocusWindow = () => {
       <Razorpay refreshCredits={getCredits}/>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-        <p>Credits: {credits !== null ? credits : 'Loading...'}</p>
+        <p>Credits: {credits !== null ? credits/100 : 'Loading...'}</p>
           <label htmlFor="prompt" className="block text-sm font-medium text-gray-700">
             Prompt
           </label>

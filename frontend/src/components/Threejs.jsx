@@ -3,6 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { useStateContext } from '../context/StateContextProvider';
+import { useCreditsContext } from '../context/CreditsContextProvider';
+
 
 function Model({ url }) {
   const { scene } = useGLTF(url);
@@ -20,6 +22,8 @@ export default function Threejs() {
   const [fileUrl, setFileUrl] = useState(null);
 
   const { zoedepthStatus } = useStateContext();
+  const { credits, getCredits } = useCreditsContext();
+
 
   const handleFileChange = useCallback((event) => {
     const file = event.target.files[0];
@@ -33,6 +37,11 @@ export default function Threejs() {
 
   useEffect(() => {
     console.log(zoedepthStatus)
+    if(zoedepthStatus?.status!="starting"){
+      setTimeout(getCredits,
+        1000
+      )
+    }  
     if (zoedepthStatus && zoedepthStatus.output) {
       setFileUrl(zoedepthStatus.output);
     }

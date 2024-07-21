@@ -21,7 +21,7 @@ export const create_prediction = async (req,res) => {
               foreground_ratio: 0.85,
               do_remove_background: false
             },
-            webhook: "https://061a-115-96-175-204.ngrok-free.app/triposr/receive_prediction",
+            webhook: "https://64d4-116-74-238-134.ngrok-free.app/triposr/receive_prediction",
             webhook_events_filter: ["start","output","completed","canceled"], 
           });
 
