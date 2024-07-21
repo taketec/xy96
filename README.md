@@ -6,20 +6,18 @@ XY96 is a powerful tool designed to streamline the creation of background enviro
  - React + Electronjs for the frontend. Expressjs, MongoDB. AI models are run on replicate. Payments are done via Razorpay
 
 
-# previews-
+# Features -
 
- - ## output in blender - 
+ - ## Final output in blender - 
 ![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.gif)
 
- - ## razorpay gateway integration - 
+ - ## Razorpay gateway integration - 
 ![](https://github.com/taketec/xy96/blob/main/previews/vlc-record-2024-07-21-22h51m25s-React-App-.gif)
-
 
  - ## Text to image- 
 ![](https://github.com/taketec/xy96/blob/main/previews/image-_generation_demo.gif)
 
-
- - ## image to 3d - 
+ - ## Image to 3d - 
 ![](https://github.com/taketec/xy96/blob/main/previews/imageto3d_preview.gif)
 
 
@@ -27,4 +25,3 @@ XY96 is a powerful tool designed to streamline the creation of background enviro
  - switch from fooocus to midjourney, fooocus is just for testing
  - add a international payment gateway (eg: stripe)
  - add redis for polled updates to clients
-
