@@ -2,16 +2,16 @@
 
 # previews-
 
- - ## login - 
-![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.mp4)
-
-
  - ## razorpay gateway integration - 
 ![](https://github.com/taketec/xy96/blob/main/previews/vlc-record-2024-07-21-22h51m25s-React-App-.gif)
 
 
- - ## play from a file - 
-![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.mp4)
+ - ## Text to image- 
+![](https://github.com/taketec/xy96/blob/main/previews/image-_generation_demo.gif)
+
+
+ - ## image to 3d - 
+![](https://github.com/taketec/xy96/blob/main/previews/imageto3d_preview.gif)
 
 
 
