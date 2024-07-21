@@ -1,3 +1,18 @@
-# Simple app for generating AI images for a 3d background environment and getting a depthmap and a 3d mesh file for them  
+# introduction and overview
 
-uses midjourney api for image generation and zoedepth for the depthmap generation
+# previews-
+
+ - ## login - 
+![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.mp4)
+
+
+ - ## play from youtube - 
+![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.mp4)
+
+
+ - ## play from a file - 
+![](https://github.com/taketec/xy96/blob/main/previews/blender_preview.mp4)
+
+
+
+## Features i would love to implement later with time - (from most important to least)
