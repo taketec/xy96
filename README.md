@@ -23,6 +23,7 @@ XY96 is a powerful tool designed to streamline the creation of background enviro
 
 
 ## Features i will to implement later with time - (from most important to least)
- - switch from fooocus to midjourney, fooocus is just for testing
- - add a international payment gateway (eg: stripe)
- - add redis for polled updates to clients
+ - switch from fooocus to midjourney, fooocus is just for testing.
+ - implement a CDN to store user media (almost done).
+ - add a international payment gateway (eg: stripe).
+ - add redis for polled updates to clients.
