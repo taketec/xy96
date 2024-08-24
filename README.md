@@ -21,6 +21,9 @@ XY96 is a powerful tool designed to streamline the creation of background enviro
  - ## Image to 3d - 
 ![](https://github.com/taketec/xy96/blob/main/previews/imageto3d_preview.gif)
 
+ - ## Login with electron IPC - 
+![](https://github.com/taketec/xy96/blob/main/previews/login%20.gif)
+
 
 ## Features i will to implement later with time - (from most important to least)
  - switch from fooocus to midjourney API, fooocus is just for testing.
